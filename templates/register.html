@@ -1,0 +1,21 @@
+<head>
+<title>Flask app</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
+</head>
+
+
+<body>
+<h2>Register</h2>
+	<form action="" method="POST">
+	{{ form.csrf_token }}
+		<div class="input_text">
+		<div class="input_field">{{form.name.label }} {{form.name}}</div><br>
+		<div class="input_field">{{form.email.label }} {{form.email}}</div><br>
+		<div class="input_field">{{form.password.label }} {{form.password}}</div><br>
+		<div class="input_field">{{form.confirm_password.label }} {{form.confirm_password}}</div>
+		</div>
+		<div class="input submit">
+			<input type="submit" value="Submit">
+		</div>
+	</form>
+</body>

@@ -1,8 +1,10 @@
-
-from flask import Flask
+from flask import Flask, render_template, flash, request
 from neo4j import GraphDatabase
 import mysql.connector
 from mysql.connector import errorcode
+from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
+import register
+from register import register_api
 
 try:
     cnx = mysql.connector.connect(user='admin',
@@ -24,11 +26,24 @@ except:
     print('connection failed')
 else:
     print('neo4j connected')
+
+
 app = Flask(__name__)
+
+app.config.from_object(__name__)
+app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
+app.register_blueprint(register_api)
 
 visit_counter_home = 1
 
-@app.route('/')
+
+class ReusableForm(Form):
+    name = TextField('Name:', validators=[validators.required()])
+    
+ 
+
+
+@app.route('/', methods=['GET', 'POST'])
 def hello_world():
     global visit_counter_home
     str1 =  'Hello, World! You are visitor number '
@@ -36,6 +51,8 @@ def hello_world():
     str1 += ' to this page since it\'s been live!'
     visit_counter_home = visit_counter_home + 1
     return str1
+
+
 
 
 if __name__ == "__main__":
