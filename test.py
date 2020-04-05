@@ -5,6 +5,8 @@ from mysql.connector import errorcode
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import register
 from register import register_api
+import pandas as pd
+#mysql -h database-1.cibdpmq7a2jg.us-east-1.rds.amazonaws.com -u admin -p
 
 try:
     cnx = mysql.connector.connect(user='admin',
@@ -16,9 +18,9 @@ except mysql.connector.Error as err:
         print("Something is wrong with your user name or password")
     else:
         print(err)
-else:
-    print('mysql connected')
-    cnx.close()
+# else:
+#     print('mysql connected')
+#     cnx.close()
 try:
     uri = "bolt://54.91.232.22:7687"
     driver = GraphDatabase.driver(uri, auth=("neo4j", "neo4jneo4j"))
@@ -37,14 +39,17 @@ app.register_blueprint(register_api)
 visit_counter_home = 1
 
 
-class ReusableForm(Form):
-    name = TextField('Name:', validators=[validators.required()])
-    
- 
-
-
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
+
+
+    sql = """
+    SELECT * FROM Users.User
+    """
+    a = pd.read_sql(sql, con=cnx)
+
+    print(a)
+
     global visit_counter_home
     str1 =  'Hello, World! You are visitor number '
     str1 += str(visit_counter_home)

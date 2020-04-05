@@ -5,17 +5,35 @@
 
 
 <body>
+
 <h2>Register</h2>
-	<form action="" method="POST">
-	{{ form.csrf_token }}
-		<div class="input_text">
-		<div class="input_field">{{form.name.label }} {{form.name}}</div><br>
-		<div class="input_field">{{form.email.label }} {{form.email}}</div><br>
-		<div class="input_field">{{form.password.label }} {{form.password}}</div><br>
-		<div class="input_field">{{form.confirm_password.label }} {{form.confirm_password}}</div>
-		</div>
-		<div class="input submit">
-			<input type="submit" value="Submit">
-		</div>
-	</form>
+<form action="" method="POST">
+{{ form.csrf_token }}
+	<div class="input_text">
+	<div class="input_field">{{form.first_name.label }} {{form.first_name}}</div><br>
+	<div class="input_field">{{form.last_name.label }} {{form.last_name}}</div><br>
+	<div class="input_field">{{form.email.label }} {{form.email}}</div><br>
+	<div class="input_field">{{form.password.label }} {{form.password}}</div><br>
+	<div class="input_field">{{form.confirm_password.label }} {{form.confirm_password}}</div>
+	</div>
+	<div class="input submit">
+		<input type="submit" value="Submit">
+	</div>
+</form>
+
+<div class="container" style="min-height:100% width:80%">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+	  <div class="alert alert-warning alert-dismissible" role="alert">
+	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+		{{message}}
+	  </div>
+	{% endfor %}
+  {% endif %}
+{% endwith %}
+
+{% block body %}{% endblock %}
+</div>
+
 </body>
