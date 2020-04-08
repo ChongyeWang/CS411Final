@@ -8,27 +8,10 @@ from flask import Flask, Blueprint, render_template, flash, request, session, re
 from mysql.connector import errorcode
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 import pandas as pd
-import mysql.connector
-from mysql.connector import errorcode
 from werkzeug.security import check_password_hash, generate_password_hash
-
+import db
 
 register_api = Blueprint('register_api', __name__)
-
-try:
-    cnx = mysql.connector.connect(user='admin',
-                                  password='adminadmin',
-                                  host='database-1.cibdpmq7a2jg.us-east-1.rds.amazonaws.com',
-                                  port= 3306)
-
-    cursor = cnx.cursor(buffered=True)
-
-except mysql.connector.Error as err:
-    if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-        print("Something is wrong with your user name or password")
-    else:
-        print(err)
-
 
 class RegistrationForm(Form):
     first_name = TextField('First Name:', validators=[validators.required()])
@@ -51,21 +34,21 @@ def register():
         confirm_password = request.form['confirm_password']
 
     if form.validate():
-        cursor.execute("SELECT * FROM Users.User WHERE email = %s", [email])
-        if(cursor.fetchone() is not None): # The email alreay exists
+        db.mysql_cursor.execute("SELECT * FROM Users.User WHERE email = %s", [email])
+        if(db.mysql_cursor.fetchone() is not None): # The email alreay exists
             print(cursor.fetchall())
             print("Fail")
             flash("Email already exists")
         elif(password != confirm_password):
             flash("Password not match")
         else:
-            cursor.execute(
+            db.mysql_cursor.execute(
                 """INSERT INTO 
                 Users.User (first_name, last_name, password, email)
                 VALUES (%s,%s,%s,%s)""", 
                 (first_name, last_name, generate_password_hash(password), email)
             )
-            cnx.commit()
+            db.mysql_cnx.commit()
             flash('Hello ' + first_name + " " + last_name)
     else:
         flash('All fields are required.')
@@ -80,9 +63,9 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         email = request.form['username']
         password = request.form['password']
-        cursor.execute('SELECT password FROM Users.User WHERE email = %s', (email,)) # Tuple with single value needs trailing comma
+        db.mysql_cursor.execute('SELECT password FROM Users.User WHERE email = %s', (email,)) # Tuple with single value needs trailing comma
 
-        result = cursor.fetchone()
+        result = db.mysql_cursor.fetchone()
 
         if result:
             if check_password_hash(result[0], password): # Successfully logged in

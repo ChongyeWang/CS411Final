@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>{{ movie_data.movie_title }}</title>
+    </head>
+
+    <body>
+        {% for pair in movie_data.items() %}
+        <p>{{ pair[0] }}: {{ pair[1] }}</p>
+        {% endfor %}
+    </body>
+</html>

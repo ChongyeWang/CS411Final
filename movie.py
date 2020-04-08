@@ -1,0 +1,19 @@
+from flask import Flask, Blueprint, render_template, abort
+import db
+
+movie_api = Blueprint('movie_api', __name__)
+
+@movie_api.route('/movie/<movie_name>')
+def movie(movie_name):
+    query = """
+        MATCH (m:Movie)
+        WHERE toLower(m.movie_title) = $movie_name
+        RETURN m
+    """
+
+    node = db.neo4j_driver.session().run(query, movie_name = movie_name).single()
+    
+    if node is not None:
+        return render_template("movie.html", movie_data = dict(node["m"].items()))
+
+    abort(404)
