@@ -85,9 +85,9 @@ def login():
         result = cursor.fetchone()
 
         if result:
-            if check_password_hash(result[0], password):
+            if check_password_hash(result[0], password): # Successfully logged in
                 session['email'] = email
-                return 'Logged in successfully!'
+                return redirect(url_for('index'))
         else:
             msg = 'Incorrect email or password! Please try again.'
     return render_template('login.html', msg=msg)
@@ -96,6 +96,5 @@ def login():
 @register_api.route('/logout')
 def logout():
     """This function handles user logout."""
-    session.pop('email', None)
-    print(url_for('register_api.login'))
-    return redirect(url_for('register_api.login'))
+    session.clear()
+    return redirect(url_for('index'))

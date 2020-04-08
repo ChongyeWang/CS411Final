@@ -1,0 +1,20 @@
+<head>
+    <title>Index</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/index.css') }}"
+    />
+</head>
+
+<body>
+    <div>
+        {% if session.email %}
+        <h1>Hello {{ session.email }}!</h1>
+        <a href="{{ url_for('register_api.logout') }}">Logout</a>
+        {% else %}
+        <h1>Hello, World!</h1>
+        <a href="{{ url_for('register_api.register') }}">Register</a>
+        <a href="{{ url_for('register_api.login') }}">Log In</a>
+        {% endif %}
+    </div>
+</body>
