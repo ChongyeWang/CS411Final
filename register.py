@@ -10,6 +10,8 @@ from wtforms import Form, TextField, TextAreaField, validators, StringField, Sub
 import pandas as pd
 import mysql.connector
 from mysql.connector import errorcode
+from werkzeug.security import check_password_hash, generate_password_hash
+
 
 register_api = Blueprint('register_api', __name__)
 
@@ -61,10 +63,9 @@ def register():
                 """INSERT INTO 
                 Users.User (first_name, last_name, password, email)
                 VALUES (%s,%s,%s,%s)""", 
-                (first_name, last_name, password, email)
+                (first_name, last_name, generate_password_hash(password), email)
             )
             cnx.commit()
-            print ("Done")
             flash('Hello ' + first_name + " " + last_name)
     else:
         flash('All fields are required.')
@@ -79,22 +80,22 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         email = request.form['username']
         password = request.form['password']
-        cursor.execute('SELECT email FROM Users.User WHERE email = %s AND password = %s', (email, password))
-        account = cursor.fetchone()
-        if account:
-            print(account)
-            session['loggedin'] = True
-            session['username'] = account[0]
-            print(session)
-            return 'Logged in successfully!'
+        cursor.execute('SELECT password FROM Users.User WHERE email = %s', (email,)) # Tuple with single value needs trailing comma
+
+        result = cursor.fetchone()
+
+        if result:
+            if check_password_hash(result[0], password):
+                session['email'] = email
+                return 'Logged in successfully!'
         else:
-            msg = 'Incorrect username or password! Please try again.'
+            msg = 'Incorrect email or password! Please try again.'
     return render_template('login.html', msg=msg)
 
 
 @register_api.route('/logout')
 def logout():
     """This function handles user logout."""
-    session.pop('loggedin', None)
-    session.pop('username', None)
+    session.pop('email', None)
+    print(url_for('register_api.login'))
     return redirect(url_for('register_api.login'))
