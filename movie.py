@@ -40,13 +40,13 @@ def movie():
         email = session['email']
 
         if form.validate():
-        	print(movie_name)
-        	print(rating)
-        	print(content)
-        	print(email)
+            print(movie_name)
+            print(rating)
+            print(content)
+            print(email)
             db.mysql_cursor.execute(
                 """INSERT INTO 
-                Users.Review (movie_name, rating, content, email)
+                Users.Review (MovieName, rating, content, email)
                 VALUES (%s,%s,%s,%s)""", 
                 (movie_name, rating, content, email)
             )
