@@ -6,33 +6,41 @@
     <body>
         <div>
             {% for pair in movie_data.items() %}
-            <p>{{ pair[0] }}: {{ pair[1] }}</p>
+                <p>{{ pair[0] }}: {{ pair[1] }}</p>
             {% endfor %}
         </div>
 
+        <h2>Review</h2>
+        <form action="" method="POST">
+            <label for="rating">Rating:</label
+            ><input
+                type="number"
+                name="rating"
+                id="rating"
+                value="{{ rating }}"
+                min="1"
+                max="10"
+            /><br />
+            <label for="content">Review:</label
+            ><textarea name="content" id="content">{{ content }}</textarea
+            ><br />
+            <input type="submit" value="Submit" />
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <div>
             {% for review in reviews %}
-            <p>
-                {{ review[3] }}: {{ review[1] }} stars - {{ review[2] }} ({{
-                review[5] }})
-            </p>
+                <p>
+                    {{ review[3] }}: {{ review[1] }} stars - {{ review[2] }} ({{review[5]}})
+                </p>
             {% endfor %}
         </div>
     </body>
 </html>
-
-
-
-
-
-<h2>Review</h2>
-<form action="" method="POST">
-{{ form.csrf_token }}
-    <div class="input_text">
-    <div class="input_field">{{form.rating.label }} {{form.rating}}</div><br>
-    <div class="input_field">{{form.content.label }} {{form.content}}</div><br>
-
-    <div class="input submit">
-        <input type="submit" value="Submit">
-    </div>
-</form>
