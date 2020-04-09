@@ -5,6 +5,7 @@ movie_api = Blueprint('movie_api', __name__)
 
 @movie_api.route('/movie/<movie_name>')
 def movie(movie_name):
+    movie_name = movie_name.lower()
     query = """
         MATCH (m:Movie)
         WHERE toLower(m.movie_title) = $movie_name
