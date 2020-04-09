@@ -20,19 +20,3 @@
         </div>
     </body>
 </html>
-
-
-
-
-
-<h2>Review</h2>
-<form action="" method="POST">
-{{ form.csrf_token }}
-    <div class="input_text">
-    <div class="input_field">{{form.rating.label }} {{form.rating}}</div><br>
-    <div class="input_field">{{form.content.label }} {{form.content}}</div><br>
-
-    <div class="input submit">
-        <input type="submit" value="Submit">
-    </div>
-</form>

@@ -1,11 +1,20 @@
-from flask import Flask, Blueprint, render_template, abort
+from flask import Flask, Blueprint, render_template, abort, request, session
 import db
+from wtforms import Form, TextField, IntegerField, TextAreaField, validators, StringField, SubmitField
 
 movie_api = Blueprint('movie_api', __name__)
 
-@movie_api.route('/movie/<movie_name>')
-def movie(movie_name):
-    movie_name = movie_name.lower()
+
+class ReviewForm(Form):
+    rating = IntegerField('Rating:', validators=[validators.required()])
+    content = TextField('Content:', validators=[validators.required()])
+    
+
+@movie_api.route('/movie', methods=['GET', 'POST'])
+def movie():
+    movie_name = request.args.get("movie_name").lower()
+    print(movie_name)
+    print(session)
     query = """
         MATCH (m:Movie)
         WHERE toLower(m.movie_title) = $movie_name
@@ -20,6 +29,24 @@ def movie(movie_name):
         db.mysql_cursor.execute('SELECT * FROM Users.Review WHERE MovieName = %s', (movie_name,)) # Tuple with single value needs trailing comma
         reviews = db.mysql_cursor.fetchall()
 
-        return render_template("movie.html", movie_data = movie_data, reviews = reviews)
+        # return render_template("movie.html", movie_data = movie_data, reviews = reviews, form=form)
+
+
+    form = ReviewForm(request.form)
+
+    if request.method == 'POST':
+        rating = request.form['rating']
+        content = request.form['content']
+        email = session['email']
+
+        if form.validate():
+        	print(movie_name)
+        	print(rating)
+        	print(content)
+        	print(email)
+
+        return render_template("movie.html", movie_data = movie_data, reviews = reviews, form=form)
+
+    return render_template("movie.html", movie_data = movie_data, reviews = reviews, form=form)
 
     abort(404)
