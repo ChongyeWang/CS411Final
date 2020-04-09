@@ -14,6 +14,11 @@ def movie(movie_name):
     node = db.neo4j_driver.session().run(query, movie_name = movie_name).single()
     
     if node is not None:
-        return render_template("movie.html", movie_data = dict(node["m"].items()))
+        movie_data = dict(node["m"].items())
+
+        db.mysql_cursor.execute('SELECT * FROM Users.Review WHERE MovieName = %s', (movie_name,)) # Tuple with single value needs trailing comma
+        reviews = db.mysql_cursor.fetchall()
+
+        return render_template("movie.html", movie_data = movie_data, reviews = reviews)
 
     abort(404)
