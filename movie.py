@@ -44,6 +44,13 @@ def movie():
         	print(rating)
         	print(content)
         	print(email)
+            db.mysql_cursor.execute(
+                """INSERT INTO 
+                Users.Review (movie_name, rating, content, email)
+                VALUES (%s,%s,%s,%s)""", 
+                (movie_name, rating, content, email)
+            )
+            db.mysql_cnx.commit()
 
         return render_template("movie.html", movie_data = movie_data, reviews = reviews, form=form)
 
