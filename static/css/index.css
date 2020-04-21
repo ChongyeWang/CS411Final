@@ -1,0 +1,13 @@
+#search_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#search_text {
+    margin-right: 1vw;
+}
+
+.selectize-control {
+    width: 30vw;
+}

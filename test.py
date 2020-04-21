@@ -14,7 +14,11 @@ app.register_blueprint(recommend_api)
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    query = "MATCH (m:Movie) RETURN m.movie_title"
+    movies = db.neo4j_driver.session().run(query).values()
+    movies = [movie[0] for movie in movies]
+
+    return render_template("index.html", movies = movies)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)
