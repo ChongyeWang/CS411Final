@@ -29,18 +29,16 @@ def register():
     if request.method == 'POST':
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        email = request.form['email']
+        email = request.form['email'].lower()
         password = request.form['password']
         confirm_password = request.form['confirm_password']
 
     if form.validate():
         db.mysql_cursor.execute("SELECT * FROM Users.User WHERE email = %s", [email])
         if(db.mysql_cursor.fetchone() is not None): # The email alreay exists
-            print(cursor.fetchall())
-            print("Fail")
             flash("Email already exists")
         elif(password != confirm_password):
-            flash("Password not match")
+            flash("The passwords you have entered do not match.")
         else:
             db.mysql_cursor.execute(
                 """INSERT INTO 
@@ -49,6 +47,8 @@ def register():
                 (first_name, last_name, generate_password_hash(password), email)
             )
             db.mysql_cnx.commit()
+
+            db.neo4j_driver.session().run("CREATE (u:User {email: $email})", email=email)
             flash('Hello ' + first_name + " " + last_name)
     else:
         flash('All fields are required.')
@@ -61,7 +61,7 @@ def login():
     """This function handles user login."""
     msg = ""
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        email = request.form['username']
+        email = request.form['username'].lower()
         password = request.form['password']
         db.mysql_cursor.execute('SELECT password FROM Users.User WHERE email = %s', (email,)) # Tuple with single value needs trailing comma
 
