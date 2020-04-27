@@ -3,6 +3,7 @@ from wtforms import Form, TextField, TextAreaField, validators, StringField, Sub
 from register import *
 from movie import *
 from recommender_system import *
+from profile import *
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -11,6 +12,8 @@ app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 app.register_blueprint(register_api)
 app.register_blueprint(movie_api)
 app.register_blueprint(recommend_api)
+app.register_blueprint(profile_api)
+
 
 @app.route('/')
 def index():
