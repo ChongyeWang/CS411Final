@@ -60,8 +60,8 @@ def register():
 def login():
     """This function handles user login."""
     msg = ""
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-        email = request.form['username'].lower()
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        email = request.form['email'].lower()
         password = request.form['password']
         db.mysql_cursor.execute('SELECT password FROM Users.User WHERE email = %s', (email,)) # Tuple with single value needs trailing comma
 
