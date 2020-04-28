@@ -8,107 +8,102 @@
 }
 
 #row1 {
-	font-size: 40px;
-	margin: auto;
+    font-size: 40px;
+    margin: auto;
 }
-
 
 #row2 {
-	font-size: 30px;
-	margin: auto;
+    font-size: 30px;
+    margin: auto;
 }
 
 #row3 {
-	font-size: 50px;
-	margin: auto;
+    font-size: 50px;
+    margin: auto;
 }
 
 #row3 {
-	font-size: 40px;
-	margin: auto;
-	color: black;
-}
-
-#social {
-	font-size: 40px;
-	margin: auto;
+    font-size: 40px;
+    margin: auto;
+    color: black;
 }
 
 #row4 {
-	font-size: 50px;
-	margin: auto;
-	color: black;
+    font-size: 50px;
+    margin: auto;
+    color: black;
 }
 
-#table, #table2{
-	width: 100%;
-	table-layout: fixed;
+#table,
+#table2 {
+    width: 100%;
+    table-layout: fixed;
 }
 
 #row1 td {
-	width: 33%;
-	text-align: center;
+    width: 33%;
+    text-align: center;
 }
 
 #row2 td {
-	width: 33%;
-	text-align: center;
+    width: 33%;
+    text-align: center;
 }
 
 #row3 td {
-	width: 50%;
-	text-align: center;
+    width: 50%;
+    text-align: center;
 }
 
 #row4 td {
-	width: 50%;
-	text-align: center;
+    width: 50%;
+    text-align: center;
 }
 
 #social td {
-	width: 50%;
-	font-size: 50px;
-	text-align: center;
+    width: 50%;
+    font-size: 50px;
+    text-align: center;
 }
 
 #s1 {
-	color: blue;
+    color: blue;
 }
 
-#s2{
-	color: lightblue;
+#s2 {
+    color: lightblue;
 }
 
-#s3{
-	color: purple;
+#s3 {
+    color: purple;
 }
 
 #row3 td {
-	width: 50%;
-	font-size: 50px;
+    width: 50%;
+    font-size: 50px;
 }
 
 #row4 td {
-	width: 50%;
-	font-size: 50px;
+    width: 50%;
+    font-size: 50px;
 }
 
-#table3 #row5{
-	font-size: 40px;
+#table3 #row5 {
+    font-size: 40px;
 }
 
-#table3 #row6{
-	font-size: 25px;
+#table3 #row6 {
+    font-size: 25px;
 }
 
-#table3 #row5 #rating{
-	text-align:right
+#table3 #row5 #rating {
+    text-align: right;
 }
 
 #movie {
-	color: darkblue;
+    color: darkblue;
 }
 
 span {
-	font-weight: bold;
+    font-weight: bold;
 }
