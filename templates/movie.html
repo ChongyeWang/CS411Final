@@ -38,7 +38,9 @@
         <div>
             {% for review in reviews %}
                 <p>
-                    {{ review[3] }}: {{ review[1] }} stars - {{ review[2] }} ({{review[5]}})
+                    <a href = "{{  url_for('profile_api.profile', email = review[3]) }}">
+                        {{ review[3] }}
+                    </a>: {{ review[1] }} stars - {{ review[2] }} ({{review[5]}})
                 </p>
             {% endfor %}
         </div>

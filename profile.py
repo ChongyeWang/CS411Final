@@ -5,13 +5,16 @@ profile_api = Blueprint('profile_api', __name__)
    
 @profile_api.route('/profile', methods=['GET', 'POST'])
 def profile():
-    db.mysql_cursor.execute('SELECT email, first_name, last_name FROM Users.User WHERE email = %s', (session["email"],))
-    user_info = db.mysql_cursor.fetchall()
-    db.mysql_cursor.execute('SELECT rating, content, MovieName FROM Users.Review WHERE email = %s', (session["email"],))
-    user_reviews = db.mysql_cursor.fetchall()
-    print(user_reviews)
-    print(user_reviews)
+    email = request.args.get("email").lower()
 
+    db.mysql_cursor.execute('SELECT email, first_name, last_name FROM Users.User WHERE email = %s', (email,))
+    user_info = db.mysql_cursor.fetchall()
+
+    if user_info is None: abort(404) # Email is invalid
+
+    db.mysql_cursor.execute('SELECT rating, content, MovieName FROM Users.Review WHERE email = %s', (email,))
+    user_reviews = db.mysql_cursor.fetchall()
+    
     rating_num = len(user_reviews)
     rating_average = 0
 
