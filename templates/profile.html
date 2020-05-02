@@ -1,71 +1,55 @@
-<head>
+{% extends "base.html" %}
+
+{% block head %}
+    <title>{{ user_info[0][1] }} {{ user_info[0][2] }}</title>
     <link
         rel="stylesheet"
         href="{{ url_for('static', filename='css/profile.css') }}"
     />
+{% endblock %}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-</head>
-
-<body>
-
-
-<div id="main">
-    <div>
-        <table id="table">
-            <tr id="row1">
-                <td>Email</td>
+{% block main %}
+    <div id="main">
+        <table id="user_info_table">
+            <tr id="user_info_table_header">
                 <td>First Name</td>
                 <td>Last Name</td> 
+                <td>Email</td>
             </tr>
-            <tr id="row2">
-                {% for info in user_info %}
-                <td>{{user_info[0][0]}}</td>
-                <td>{{user_info[0][1]}}</td>
-                <td>{{user_info[0][2]}}</td>
-                {% endfor %}
+            <tr id="user_info_table_data">
+                <td>{{ user_info[0][2] }}</td>
+                <td>{{ user_info[0][1] }}</td>
+                <td>{{ user_info[0][0] }}</td>
             </tr>
-
         </table>
 
         <hr>
 
-        <table id="table2">
-
-            <tr id="row3">
+        <table id="reviews_summary_table">
+            <tr id="reviews_summary_table_header">
                 <td>Total Reviews</td>
                 <td>Average Rating</td>
             </tr>
 
-            <tr id="row4">
+            <tr id="reviews_summary_table_data">
                 <td><span><span>{{rating_num}}</span></td>
                 <td><span>{{rating_average}}</span></td>
             </tr>
-
         </table>
-        
+
+        <hr>
+
+        <div id="reviews_table">
+            {% for review in user_reviews %}
+                <div class="review">
+                    <div class="review_heading">
+                        <a class="movie_name" href="{{ url_for('movie_api.movie', movie_name=review[2]) }}">{{review[2]}}</a>
+                        Rating: <span class="rating">{{review[0]}}</span>
+                    </div>
+
+                    <div class="review_contents">{{ review[1] }}</div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-
-    <hr>
-    <br>
-
-    <table id="table3">
-        {% for review in user_reviews %}
-            <tr id="row5">
-                <td>
-                <span><a id="movie" href="{{ url_for('movie_api.movie', movie_name=review[2]) }}" class="active">{{review[2]}}</a></span>
-                </td>
-                <td id="rating">Rating: <span>{{review[0]}}</span></td>
-            </tr>
-            <tr id="row6">
-                <td>{{review[1]}}</td>
-            </tr>
-            
-        {% endfor %}
-    </table>
-
-</div>
-
-
-</body>
+{% endblock %}

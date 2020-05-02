@@ -17,11 +17,13 @@ app.register_blueprint(profile_api)
 
 @app.route('/')
 def index():
+    if not session.get("email"): return render_template("index_not_logged_in.html")
+
     query = "MATCH (m:Movie) RETURN m.movie_title"
     movies = db.neo4j_driver.session().run(query).values()
     movies = [movie[0] for movie in movies]
 
-    return render_template("index.html", movies = movies)
+    return render_template("index_logged_in.html", movies = movies)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80)

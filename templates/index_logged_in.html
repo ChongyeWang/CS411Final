@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Movie Match</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/index_logged_in.css') }}"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.default.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
+    <script src="{{ url_for('static', filename='js/index_logged_in.js') }}"></script>
+
+
+    <script>
+        let movies = {{ movies | tojson }};
+        $(document).ready(setMovieList);
+    </script>
+{% endblock %}
+
+{% block main %}
+    <div id = "search_container">
+        <span id = "search_text">Search:</span>
+        <select id = "movie_select"></select>
+    </div>
+{% endblock %}
