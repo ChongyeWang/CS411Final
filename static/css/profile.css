@@ -1,32 +1,30 @@
 #main {
-    margin: auto;
     width: 70%;
     border: 3px solid black;
     padding: 15px;
     border-radius: 10px;
-    margin-top: 3%;
+    margin: 3% auto;
 }
 
 table {
     width: 100%;
 }
 
-#user_info_table_header {
-    font-size: 40px;
+#user_info {
+    text-align: center;
+    margin-top: 2%;
 }
 
-#user_info_table_data {
+h1 {
+    font-size: 50px;
+}
+
+h2 {
     font-size: 30px;
 }
 
 #reviews_summary_table {
     font-size: 40px;
-}
-
-#user_info_table_header td,
-#user_info_table_data td {
-    width: 33%;
-    text-align: center;
 }
 
 #reviews_summary_table_header td,
@@ -38,17 +36,20 @@ table {
 
 .review {
     background-color: rgba(251, 248, 248, 0.62);
-    box-shadow: 2px 2px 5px 1px black;
+    box-shadow: 2px 2px 8px 3px #505050;
     padding: 5px;
+    margin: 20px;
 }
 
 .review_heading {
     font-size: 40px;
     text-align: center;
+    margin-bottom: 1%;
 }
 
 .review_contents {
     font-size: 25px;
+    text-align: center;
 }
 
 .review_heading a {

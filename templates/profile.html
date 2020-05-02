@@ -9,22 +9,13 @@
 {% endblock %}
 
 {% block main %}
+    <div id="user_info">
+        <h1>{{ user_info[0][1] }} {{ user_info[0][2] }}</h1>
+        <br>
+        <h2>{{ user_info[0][0] }}</h2>
+    </div>
+
     <div id="main">
-        <table id="user_info_table">
-            <tr id="user_info_table_header">
-                <td>First Name</td>
-                <td>Last Name</td> 
-                <td>Email</td>
-            </tr>
-            <tr id="user_info_table_data">
-                <td>{{ user_info[0][2] }}</td>
-                <td>{{ user_info[0][1] }}</td>
-                <td>{{ user_info[0][0] }}</td>
-            </tr>
-        </table>
-
-        <hr>
-
         <table id="reviews_summary_table">
             <tr id="reviews_summary_table_header">
                 <td>Total Reviews</td>
