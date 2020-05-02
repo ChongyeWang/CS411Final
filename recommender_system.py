@@ -295,16 +295,32 @@ def get_k_similar_users(k, target_user, normalized_matrix):
         heapq.heappush(priority_queue, (similarity, user))
     k_nearest_users = []
     while k > 0:
-        k_nearest_users.append(heapq.heappop(priority_queue))
+        k_nearest_users.append(heapq.heappop(priority_queue)[1])
         k -= 1
     return k_nearest_users
 
 
-
-@recommend_api.route('/recommend', methods=['GET', 'POST'])
-def recommend():
+def generate_recommended_users(normalized_matrix):
     """
-    The main function of recommending potential relations to the current user.
+    Insert into database.
+    """
+    for user in normalized_matrix:
+        target_user = user
+        # Retrieve the k nearest users
+        k_nearest_users = get_k_similar_users(10, target_user, normalized_matrix)
+        for recommended_user in k_nearest_users:
+            db.mysql_cursor.execute(
+                """INSERT INTO 
+                Users.Recommender (user_name, recommended_user)
+                VALUES (%s,%s)""", 
+                (user, recommended_user)
+            )
+    db.mysql_cnx.commit()
+
+
+def initialize_recommender_system():
+    """
+    Initialize the recommender system table;
     """
 
     # Initialize the user-rating matrix
@@ -315,16 +331,19 @@ def recommend():
     
     # Normalize the user-rating matrix
     normalized_matrix = normalize_matrix(user_ratings_matrix)
-    
-    # Retrieve the k nearest users
-    k_nearest_users = get_k_similar_users(3, "test5@gmail.com", normalized_matrix)
 
-    #### Test data. To be removed ####
-    print(k_nearest_users)
-    print(normalized_matrix["test5@gmail.com"])
-    for user in k_nearest_users:
-        print(normalized_matrix[user[1]])
-    #### Test data. To be removed ####
+    generate_recommended_users(normalized_matrix)
+
+
+
+
+@recommend_api.route('/recommend', methods=['GET', 'POST'])
+def recommend():
+    """
+    The main function of recommending potential relations to the current user.
+    """
+    initialize_recommender_system()
+    
 
     return render_template('recommend.html')
 
