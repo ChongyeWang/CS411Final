@@ -2,22 +2,19 @@
 
 {% block head %}
     <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}
 
 {% block main %}
     <h1>Login</h1>
     <form action="{{ url_for('register_api.login') }}" method="post">
-        <label for="email">
-            <i class="fas fa-user"></i>
-        </label>
-        <input type="email" name="email" placeholder="Email" id="email" required>
-        <label for="password">
-            <i class="fas fa-lock"></i>
-        </label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
-        <div class="msg">{{ msg }}</div>
-        <input type="submit" value="Login">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password"id="password" required>
+        <button>Login</button>
     </form>
+
+    <div class="message_container">{{ msg }}</div>
 {% endblock %}

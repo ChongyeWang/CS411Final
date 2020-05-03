@@ -1,24 +1,40 @@
-input[type="submit"] {
-    width: 10%;
-    background-color: black;
-    color: white;
-    padding: 7px 12px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+h1 {
+    text-align: center;
+    font-size: 30px;
+    margin: 30px 0;
 }
 
-.input_text {
-    margin: auto;
-    display: inline-block;
+form {
+    display: grid;
+    grid-template-columns: [labels] 1fr [inputs] 2fr;
+    grid-template-rows: 30px;
+    row-gap: 30px;
+    align-items: center;
+    width: 40%;
+    margin: 10px auto;
+    border: 1px solid black;
+    padding: 20px;
 }
 
-.input_field {
-    width: 100%;
+label {
+    font-size: 24px;
+}
+
+input {
+    height: 100%;
+}
+
+button {
+    height: 40px;
+    width: 30%;
+    justify-self: center;
+    grid-column: 1 / -1;
+    margin-top: 10px;
 }
 
 .message_container {
-    min-height: 100%;
-    width: 80%;
+    color: red;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
 }

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
 
-    {% block head %}
-    <title>{% block title %}{% endblock %} - My Webpage</title>
-    {% endblock %}
-</head>
-<body>
-    <nav>
-        <a href="{{ url_for('index') }}">Movie Match</a>
-        <ul id="nav_links">
-            {% if not session.email %}
-                <li><a href="{{ url_for('register_api.register') }}">Register</a></li>
-                <li><a href="{{ url_for('register_api.login') }}">Log In</a></li>
-            {% else %}
-                <li><a href="{{ url_for('register_api.logout') }}">Logout</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    <main>
-        {% block main %}{% endblock %}
-    </main>
-    <footer>&copy; 2020  Movie Match | Developed by CS 411 Team 11</footer>
-</body>
+        {% block head %}
+        <title>{% block title %}{% endblock %} - My Webpage</title>
+        {% endblock %}
+    </head>
+    <body>
+        <nav>
+            <a href="{{ url_for('index') }}">Movie Match</a>
+            <ul id="nav_links">
+                {% if not session.email %}
+                    <li><a href="{{ url_for('register_api.register') }}">Register</a></li>
+                    <li><a href="{{ url_for('register_api.login') }}">Log In</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('register_api.logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+        <footer>&copy; 2020  Movie Match | Developed by CS 411 Team 11</footer>
+    </body>
 </html>

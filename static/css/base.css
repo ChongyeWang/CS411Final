@@ -156,7 +156,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     font-size: 30px;
-    height: 8vh;
+    height: 6vh;
     padding: 10px;
 }
 
@@ -183,7 +183,7 @@ footer {
     width: 100%;
     background-color: black;
     color: white;
-    height: 6vh;
+    height: 5vh;
     font-size: 18px;
     flex-shrink: 0;
 }
