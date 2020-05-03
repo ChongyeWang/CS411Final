@@ -56,10 +56,10 @@ def register():
 
 @register_api.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == "POST":            
+    if request.method == "POST":
         email = request.form['email'].lower()
         password = request.form['password']
-        
+
         db.mysql_cursor.execute('SELECT password FROM Users.User WHERE email = %s', (email,)) # Tuple with single value needs trailing comma
         result = db.mysql_cursor.fetchone()
 
