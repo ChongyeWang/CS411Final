@@ -339,13 +339,16 @@ def initialize_recommender_system():
 
 @recommend_api.route('/recommend', methods=['GET', 'POST'])
 def recommend():
-    """
-    The main function of recommending potential relations to the current user.
-    """
-    initialize_recommender_system()
     
+    username = session['email']
 
-    return render_template('recommend.html')
+    db.mysql_cursor.execute(
+        """SELECT recommended_user FROM Users.Recommender WHERE user_name = %s""", 
+        (username,)
+    )
+    recommended_user = db.mysql_cursor.fetchall()
+
+    return render_template('recommend.html', recommended_user = recommended_user)
 
 
 
