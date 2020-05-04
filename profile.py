@@ -1,18 +1,19 @@
-from flask import Flask, Blueprint, render_template, abort, request, session, flash
+from flask import Flask, Blueprint, render_template, abort, request, session, flash, Response
 import db
 
 profile_api = Blueprint('profile_api', __name__)
    
 @profile_api.route('/profile', methods=['GET', 'POST'])
 def profile():
-    email = request.args.get("email").lower()
+    userEmail = session["email"]
+    profileEmail = request.args.get("email").lower()
 
-    db.mysql_cursor.execute('SELECT email, first_name, last_name FROM Users.User WHERE email = %s', (email,))
+    db.mysql_cursor.execute('SELECT email, first_name, last_name FROM Users.User WHERE email = %s', (profileEmail,))
     user_info = db.mysql_cursor.fetchall()
 
     if user_info is None: abort(404) # Email is invalid
 
-    db.mysql_cursor.execute('SELECT rating, content, MovieName FROM Users.Review WHERE email = %s', (email,))
+    db.mysql_cursor.execute('SELECT rating, content, MovieName FROM Users.Review WHERE email = %s', (profileEmail,))
     user_reviews = db.mysql_cursor.fetchall()
     
     rating_num = len(user_reviews)
@@ -21,4 +22,35 @@ def profile():
     if rating_num > 0:
         rating_average = round(sum([i[0] for i in user_reviews]) / rating_num, 1)
 
-    return render_template("profile.html", user_info=user_info, user_reviews=user_reviews, rating_num=rating_num, rating_average=rating_average)
+
+    distance = 0 # 0 -> Your profile, infinity -> No friends in common, other -> distance of N friends
+    if userEmail != profileEmail:
+        shortestPathQuery = """
+            MATCH p = shortestPath((u:User {email: $userEmail})-[:FriendsWith]->(v:User  {email: $profileEmail}))
+            RETURN length(p) AS distance
+        """
+
+        result = db.neo4j_driver.session().run(shortestPathQuery, userEmail=userEmail, profileEmail=profileEmail).single()
+        distance = result["distance"] if result is not None else "infinity"
+
+    return render_template("profile.html", user_info=user_info, user_reviews=user_reviews, rating_num=rating_num, rating_average=rating_average, distance=distance)
+
+# If a friend relation does not exist, it is added
+# Otherwise, it is deleted
+@profile_api.route('/toggleFriend', methods=['POST'])
+def addFriend():
+    userEmail = session["email"]
+    profileEmail = request.json["email"]
+
+    # https://gist.github.com/calvindavis/5876477#gistcomment-2627042
+    # Toggles the FriendsWith relationship
+    query = """
+        MATCH (u:User {email: $userEmail}), (v:User {email: $profileEmail})
+        CREATE (u)-[:FriendsWith]->(v)
+        WITH u, v MATCH (u)-[r:FriendsWith]->(v), (u)-[:FriendsWith]->(v)
+        DELETE r
+    """
+
+    db.neo4j_driver.session().run(query, userEmail=userEmail, profileEmail=profileEmail)
+
+    return Response() # Return response 200 OK
