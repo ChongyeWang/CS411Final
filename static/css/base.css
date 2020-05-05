@@ -142,7 +142,7 @@ body {
 body {
     display: flex;
     flex-direction: column;
-    background-image: url("Background.jpg");
+    background-image: url("./../images/Background.jpg");
     background-position: center;
     background-size: cover;
     color: white;
@@ -150,6 +150,11 @@ body {
 
 main {
     flex: 1 0 auto;
+}
+
+a,
+a:visited {
+    color: white;
 }
 
 /* Navbar */
