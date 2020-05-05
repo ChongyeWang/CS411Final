@@ -145,11 +145,13 @@ body {
     background-image: url("./../images/Background.jpg");
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
     color: white;
 }
 
 main {
     flex: 1 0 auto;
+    background: rgba(0, 0, 0, 0.26);
 }
 
 a,

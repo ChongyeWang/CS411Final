@@ -16,7 +16,6 @@
         <meta name="theme-color" content="#ffffff">
 
         {% block head %}
-        <title>{% block title %}{% endblock %} - My Webpage</title>
         {% endblock %}
     </head>
     <body>
@@ -27,6 +26,7 @@
                     <li><a href="{{ url_for('register_api.register') }}">Register</a></li>
                     <li><a href="{{ url_for('register_api.login') }}">Log In</a></li>
                 {% else %}
+                    <li><a href="{{ url_for('profile_api.profile', email = session['email']) }}">Profile</a></li>
                     <li><a href="{{ url_for('register_api.logout') }}">Logout</a></li>
                 {% endif %}
             </ul>
