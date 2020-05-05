@@ -142,6 +142,9 @@ body {
 body {
     display: flex;
     flex-direction: column;
+	background-image: url('Background.jpg');
+	background-position: center;
+	background-size: cover;
 }
 
 main {
