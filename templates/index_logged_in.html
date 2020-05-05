@@ -19,14 +19,12 @@
 {% endblock %}
 
 {% block main %}
-    <div id = "outPopUp">
-        <div id = "search_container">
-            <span id = "search_text">Search:</span>
-            <select id = "movie_select"></select>
-        </div>
+    <div id = "search_container">
+        <select id = "movie_select"></select>
+    </div>
 
     <div id="recommended_friends">
-        <h1>Friend Recommendations</h1>
+        <h1>Friend Recommendations:</h1>
         {% for first_name, last_name, email in recommendations %}
             <div class="friend_recommendation">
                 <a href="{{ url_for('profile_api.profile', email = email) }}">{{ first_name }} {{ last_name }}</a>
