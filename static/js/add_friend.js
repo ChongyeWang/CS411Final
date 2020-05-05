@@ -1,7 +1,8 @@
 async function addFriend(friendButton) {
     let email = friendButton.dataset.email;
+    let addingFriend = friendButton.innerText === "Add Friend";
 
-    if (friendButton.innerText === "Add Friend") {
+    if (addingFriend) {
         friendButton.innerText = "Remove Friend";
         friendButton.classList.remove("add_friend");
         friendButton.classList.add("remove_friend");
@@ -13,7 +14,9 @@ async function addFriend(friendButton) {
 
     let data = { email };
 
-    await fetch("/toggleFriend", {
+    let endpoint = addingFriend ? "/addFriend" : "/removeFriend";
+
+    await fetch(endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
