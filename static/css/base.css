@@ -142,9 +142,10 @@ body {
 body {
     display: flex;
     flex-direction: column;
-	background-image: url('Background.jpg');
-	background-position: center;
-	background-size: cover;
+    background-image: url("Background.jpg");
+    background-position: center;
+    background-size: cover;
+    color: white;
 }
 
 main {
@@ -155,7 +156,6 @@ main {
 nav {
     display: flex;
     background: black;
-    color: white;
     justify-content: space-between;
     align-items: center;
     font-size: 30px;

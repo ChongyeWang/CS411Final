@@ -8,13 +8,19 @@ import db
 
 register_api = Blueprint('register_api', __name__)
 
+
 class RegistrationForm(Form):
-    first_name = StringField('First Name:', [InputRequired(message = "Little short for an email address?")])
-    last_name = StringField('Last Name:', [InputRequired(message = "Please enter your last name.")])
-    email = EmailField('Email:', [Email(message = "Please enter your email address.")])
-    password = PasswordField('Password:', [Length(min = 8, message = "Please enter a password of at least eight characters.")])
-    confirm_password = PasswordField('Confirm Password:', [InputRequired(message = "Please confirm your password."), EqualTo('password', message = "The passwords do not match.")])
-    
+    first_name = StringField('First Name:', [InputRequired(
+        message="Little short for an email address?")])
+    last_name = StringField('Last Name:', [InputRequired(
+        message="Please enter your last name.")])
+    email = EmailField(
+        'Email:', [Email(message="Please enter your email address.")])
+    password = PasswordField('Password:', [Length(
+        min=8, message="Please enter a password of at least eight characters.")])
+    confirm_password = PasswordField('Confirm Password:', [InputRequired(
+        message="Please confirm your password."), EqualTo('password', message="The passwords do not match.")])
+
 
 @register_api.route('/register', methods=['GET', 'POST'])
 def register():
@@ -29,9 +35,10 @@ def register():
         confirm_password = request.form['confirm_password']
 
         if form.validate():
-            db.mysql_cursor.execute("SELECT * FROM Users.User WHERE email = %s", [email])
+            db.mysql_cursor.execute(
+                "SELECT * FROM Users.User WHERE email = %s", [email])
 
-            if db.mysql_cursor.fetchone() is not None: # The email already exists
+            if db.mysql_cursor.fetchone() is not None:  # The email already exists
                 flash("Email already exists")
             elif password != confirm_password:
                 flash("The passwords you have entered do not match.")
@@ -39,20 +46,22 @@ def register():
                 db.mysql_cursor.execute(
                     """INSERT INTO 
                     Users.User (first_name, last_name, password, email)
-                    VALUES (%s,%s,%s,%s)""", 
+                    VALUES (%s,%s,%s,%s)""",
                     (first_name, last_name, generate_password_hash(password), email)
                 )
                 db.mysql_cnx.commit()
 
-                db.neo4j_driver.session().run("CREATE (u:User {email: $email})", email=email)
+                db.neo4j_driver.session().run(
+                    "CREATE (u:User {email: $email})", email=email)
                 return redirect(url_for("register_api.login"))
         else:
             # form.errors is {field_name_1: [arr, of, errors], ...}
             for errors in form.errors.values():
                 for error in errors:
                     flash(error)
-    
-    return render_template('register.html', form = form)
+
+    return render_template('register.html', form=form)
+
 
 @register_api.route('/login', methods=['GET', 'POST'])
 def login():
@@ -60,12 +69,14 @@ def login():
         email = request.form['email'].lower()
         password = request.form['password']
 
-        db.mysql_cursor.execute('SELECT password FROM Users.User WHERE email = %s', (email,)) # Tuple with single value needs trailing comma
+        # Tuple with single value needs trailing comma
+        db.mysql_cursor.execute(
+            'SELECT password FROM Users.User WHERE email = %s', (email,))
         result = db.mysql_cursor.fetchone()
 
         if result and check_password_hash(result[0], password):
             session['email'] = email
-            return redirect(url_for('index'))
+            return redirect(url_for('homepage_api.index'))
         else:
             flash("You have entered an invalid email or password.")
 
@@ -75,4 +86,4 @@ def login():
 @register_api.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('homepage_api.index'))

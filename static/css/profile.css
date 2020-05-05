@@ -1,24 +1,29 @@
 #main {
     width: 70%;
-    border: 3px solid black;
     padding: 15px;
-    border-radius: 10px;
     margin: 3% auto;
 }
 
-#friend_button {
+#distance {
+    margin-top: 20px;
+}
+
+.friend_button {
     display: block;
     margin: 50px auto;
     padding: 10px 20px;
     font-size: 20px;
     border: 1px solid black;
-    background-color: blue;
     color: white;
     box-shadow: 1px 1px 4px 2px grey;
 }
 
-#distance {
-    margin-top: 20px;
+.add_friend {
+    background-color: green;
+}
+
+.remove_friend {
+    background-color: red;
 }
 
 table {
@@ -50,7 +55,7 @@ h2 {
 }
 
 .review {
-    background-color: rgba(251, 248, 248, 0.62);
+    background-color: rgba(132, 132, 132, 0.62);
     box-shadow: 2px 2px 8px 3px #505050;
     padding: 5px;
     margin: 20px;
@@ -68,7 +73,7 @@ h2 {
 }
 
 .review_heading a {
-    color: darkblue;
+    color: white;
 }
 
 .rating {

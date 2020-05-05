@@ -5,10 +5,43 @@
     margin-top: 1%;
 }
 
-#search_text {
-    margin-right: 1vw;
-}
-
 .selectize-control {
     width: 30vw;
+}
+
+#recommended_friends {
+    margin-top: 5%;
+}
+
+h1 {
+    font-size: 30px;
+    text-align: center;
+}
+
+.friend_recommendation {
+    display: flex;
+    width: 20%;
+    margin: 30px auto;
+    font-size: 30px;
+    justify-content: space-between;
+}
+
+.friend_recommendation a {
+    color: white;
+}
+
+.friend_button {
+    padding: 10px 20px;
+    border: 1px solid black;
+    color: white;
+    box-shadow: 1px 1px 4px 2px grey;
+    font-size: 20px;
+}
+
+.add_friend {
+    background-color: green;
+}
+
+.remove_friend {
+    background-color: red;
 }
