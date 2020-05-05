@@ -19,12 +19,14 @@
 {% endblock %}
 
 {% block main %}
-    <div id = "search_container">
-        <span id = "search_text">Search:</span>
-        <select id = "movie_select"></select>
-    </div>
+    <div id = "outPopUp">
+        <div id = "search_container">
+            <span id = "search_text">Search:</span>
+            <select id = "movie_select"></select>
+        </div>
 
-    <div class="recommend_users" align="center">
-        <a href="{{ url_for('recommend_api.recommend')}}">People you might like</a>
+        <div class="recommend_users" align="center">
+            <a href="{{ url_for('recommend_api.recommend')}}">People you might like</a>
+        </div>
     </div>
 {% endblock %}

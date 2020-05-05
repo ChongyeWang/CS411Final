@@ -12,3 +12,14 @@
 .selectize-control {
     width: 30vw;
 }
+
+#outPopUp {
+    position: absolute;
+    width: 400px;
+    height: 100px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    background: whitesmoke;
+}

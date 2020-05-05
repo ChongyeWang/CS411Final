@@ -154,7 +154,7 @@ main {
 /* Navbar */
 nav {
     display: flex;
-    background: black;
+    background: rgb(77, 27, 27);
     color: white;
     justify-content: space-between;
     align-items: center;
@@ -184,7 +184,7 @@ footer {
     justify-content: center;
     align-items: center;
     width: 100%;
-    background-color: black;
+    background-color: #444444;
     color: white;
     height: 5vh;
     font-size: 18px;
