@@ -4,55 +4,106 @@
     padding: 15px;
     border-radius: 10px;
     margin: 3% auto;
-	text-align: center;
+    text-align: center;
 }
 
 h1 {
-	font-size: 100px;
+    font-size: 70px;
+    margin-bottom: 20px;
 }
 
 #paragraph1 {
-	text-align: center;
-	color: 	#FFFAFA;
+    text-align: center;
+    color: #fffafa;
 }
 
-
-table,th,td {
-	border: 2px solid #FFFAFA;
-	margin-left: auto;
-	margin-right: auto;
-	color: white;
-	font-weight: bold;
-	padding: 8px;
+table,
+th,
+td {
+    border: 2px solid #fffafa;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-weight: bold;
+    padding: 8px;
+    background-color: rgba(132, 132, 132, 0.36);
 }
 
-#Review_boxes{
-	color: white;
-	font-size: large;
+#Review_boxes {
+    margin: 0 auto;
+    width: fit-content;
 }
 
-textarea{
-  width: 10%;
-  height: 50px;
-  padding: 6px 10px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: white;
-  resize: both;
+hr {
+    width: 80%;
+    margin-top: 50px;
 }
 
-input{
-	width: 5%;
-	margin: 8px 0;
-	align: center;
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rating {
+    width: 60px;
+    margin-bottom: 30px;
+}
+
+textarea {
+    width: 30vw;
+    height: 10vh;
+    height: 20vh;
 }
 
 h2 {
-	font-size: 40px
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+#review_boxes label {
+    font-size: 40px;
+    margin: 20px 0;
+}
+
+#review_boxes button {
+    font-size: 30px;
+    background-color: gray;
+    color: white;
+    margin: 30px 0;
+    width: fit-content;
+}
+
+#save_review_message {
+    font-size: 20px;
+    text-align: center;
+}
+
+.review {
+    background-color: rgba(132, 132, 132, 0.62);
+    box-shadow: 2px 2px 8px 3px #505050;
+    padding: 5px;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.review_heading {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 1%;
+}
+
+.review_contents {
+    font-size: 25px;
+    text-align: center;
 }
 
 #Review_responses{
 	border: 2px solid #FFFAFA;
 	color:white;
+}
+.review_heading a {
+    color: white;
 }

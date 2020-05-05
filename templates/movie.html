@@ -1,108 +1,107 @@
 {% extends "base.html" %}
 
-    {% block head %}
-        <title>{{ movie_data.movie_title }}</title>
-		<link rel = "stylesheet" 
-		href = "{{url_for('static', filename = 'css/movies.css')}}"
-		/>
-    {% endblock %}
-	
+{% block head %}
+    <title>{{ movie_data.movie_title }}</title>
+    <link
+        rel="stylesheet"
+        href="{{url_for('static', filename = 'css/movies.css')}}"
+    />
+{% endblock %}
 
+{% block main %}
+    <div id="paragraph1">
+        <h1>{{movie_data.movie_title}}</h1>
+    </div>
+    <table id="movie_info_table">
+        <tr>
+            <th>Plot Keywords:</th>
+            <td>{{movie_data.plot_keywords}}</td>
+        </tr>
+        <tr>
+            <th>Country:</th>
+            <td>{{movie_data.country}}</td>
+        </tr>
+        <tr>
+            <th>Gross Income(USD):</th>
+            <td>{{movie_data.gross}}</td>
+        </tr>
+        <tr>
+            <th>Budget(USD):</th>
+            <td>{{movie_data.budget}}</td>
+        </tr>
+        <tr>
+            <th>Release Year:</th>
+            <td>{{movie_data.title_year}}</td>
+        </tr>
+        <tr>
+            <th>Language:</th>
+            <td>{{movie_data.language}}</td>
+        </tr>
+        <tr>
+            <th>IMDB Score:</th>
+            <td>{{movie_data.imdb_score}}</td>
+        </tr>
+        <tr>
+            <th>Duration in Minutes:</th>
+            <td>{{movie_data.duration}}</td>
+        </tr>
+        <tr>
+            <th>Genres:</th>
+            <td>{{movie_data.genres}}</td>
+        </tr>
+        <tr>
+            <th>Director:</th>
+            <td>{{movie_data.director_name}}</td>
+        </tr>
+        <tr>
+            <th>Rated:</th>
+            <td>{{movie_data.content_rating}}</td>
+        </tr>
+    </table>
+    <hr />
+    <div id="review_boxes">
+        <h2>Add a Review</h2>
+        <form action="" method="POST">
+            <label for="rating">Rating</label
+            ><input
+                type="number"
+                name="rating"
+                id="rating"
+                value="{{ rating }}"
+                min="1"
+                max="10"
+            />
+            <label for="content">Review</label
+            ><textarea name="content" id="content">{{ content }}</textarea>
+            <button>Save Review</button>
+        </form>
+    </div>
 
-    {% block main %}
-	<div id = paragraph1>
-		<h1>{{movie_data.movie_title}}</h1>
-		<br>
-		<br>
-		<p>Hello and thank you for using MovieMatch! Now that you have selected a movie from our database, interesting information about said movie will be displayed below.
-		Please feel free to leave both your rating for this movie and reviews using the box at the bottom of the page.</p>
-		<br>
-		<br>
-		<br>
-	</div>
-        <table id = "movie_info_table">
-			<tr>
-				<th>Plot Keywords:</th>
-				<td>{{movie_data.plot_keywords}}</td>
-			</tr>
-			<tr>
-				<th>Country:</th>
-				<td>{{movie_data.country}}</td>
-			</tr>
-			<tr>
-				<th>Gross Income(USD):</th>
-				<td>{{movie_data.gross}}</td>
-			</tr>
-			<tr>
-				<th>Budget(USD):</th>
-				<td>{{movie_data.budget}}</td>
-			</tr>
-			<tr>
-				<th>Release Year:</th>
-				<td>{{movie_data.title_year}}</td>
-			</tr>
-			<tr>
-				<th>Language:</th>
-				<td>{{movie_data.language}}</td>
-			</tr>
-			<tr>
-				<th>IMDB Score:</th>
-				<td>{{movie_data.imdb_score}}</td>
-			</tr>
-			<tr>
-				<th>Duration in Minutes:</th>
-				<td>{{movie_data.duration}}</td>
-			</tr>
-			<tr>
-				<th>Genres:</th>
-				<td>{{movie_data.genres}}</td>
-			</tr>
-			<tr>
-				<th>Director:</th>
-				<td>{{movie_data.director_name}}</td>
-			</tr>
-			<tr>
-				<th>Rated:</th>
-				<td>{{movie_data.content_rating}}</td>
-			</tr>
-        </table>
-
-		<div id = "Review_boxes">
-			<h2>Reviews:</h2>
-			<form action="" method="POST">
-				<label for="rating">Rating:</label
-				><input
-					type="number"
-					name="rating"
-					id="rating"
-					value="{{ rating }}"
-					min="1"
-					max="10"
-				/><br />
-				<label for="content">Review:</label
-				><textarea name="content" id="content">{{ content }}</textarea
-				><br />
-				<input type="submit" value="Submit" />
-			</form>
-		</div>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-		
-        <div id = "Review_responses">
-            {% for review in reviews %}
-                <p>
-                    <a href = "{{  url_for('profile_api.profile', email = review[3]) }}">
-                        {{ review[3] }}
-                    </a>: {{ review[1] }} stars - {{ review[2] }} ({{review[5]}})
-                </p>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="save_review_message">{{ message }}</p>
             {% endfor %}
-        </div>
-	{% endblock %}
+        {% endif %}
+    {% endwith %}
 
+    <hr>
 
+    <div id="reviews">
+        <h2>Reviews</h2>
+        {% for review in reviews %}
+            <div class="review">
+                <div class="review_heading">
+                    <a href="{{  url_for('profile_api.profile', email = review[3]) }}"
+                        >{{ review[3] }}</a
+                    >
+                    Rating: {{ review[1] }}
+                    {{review[5]}}
+                </div>
+                <div class="review_contents">
+                    {{ review[2] }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"></script>
     <script src="{{ url_for('static', filename='js/index_logged_in.js') }}"></script>
-
+    <script src=" {{ url_for('static', filename='js/add_friend.js') }}"></script>
 
     <script>
         let movies = {{ movies | tojson }};
@@ -28,5 +28,18 @@
         <div class="recommend_users" align="center">
             <a href="{{ url_for('recommend_api.recommend')}}">People you might like</a>
         </div>
+
+    <div id="recommended_friends">
+        <h1>Friend Recommendations</h1>
+        {% for first_name, last_name, email in recommendations %}
+            <div class="friend_recommendation">
+                <a href="{{ url_for('profile_api.profile', email = email) }}">{{ first_name }} {{ last_name }}</a>
+                <button
+                    class="friend_button add_friend"
+                    onclick="addFriend(this)"
+                    data-email="{{ email }}"
+                >Add Friend</button>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
