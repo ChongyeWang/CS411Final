@@ -19,9 +19,8 @@
 {% endblock %}
 
 {% block main %}
-	<div id = "logo">
-	<p>Movie Match!</p>
-	</div>
+    <div class = "logo logo_heading">Movie Match</div>
+
     <div id = "search_container">
         <select id = "movie_select"></select>
     </div>
@@ -37,6 +36,15 @@
                     data-email="{{ email }}"
                 >Add Friend</button>
             </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <h1>Friends:</h1>
+    <div id="current_friends">
+        {% for first_name, last_name, email in friends %}
+            <a href="{{ url_for('profile_api.profile', email = email) }}">{{ first_name }} {{ last_name }}</a>
         {% endfor %}
     </div>
 {% endblock %}

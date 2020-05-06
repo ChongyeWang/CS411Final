@@ -116,20 +116,16 @@ def generate_recommendation_matrix():
 
 def get_recommended_friends(num_recommendations, recommendation_matrix):
     """
-    Returns a list of tuples (first, last, email) of recommended friends.
-    The recommendations are not already friends.
+        Returns a list of emails of recommended friends.
+        The best num_recommendations suggestions will be returned. If a user is
+        already a friend, they will be ignored. The result may contain fewer
+        than num_recommendations users.
     """
 
     recommended_friends = get_k_similar_users(
         num_recommendations, session["email"], recommendation_matrix)
 
-    current_friends_query = """
-        MATCH (u:User {email: $email})-[:FriendsWith]->(v:User)
-        RETURN COLLECT(v.email) AS emails
-    """
-    current_friends = db.neo4j_driver.session().run(
-        current_friends_query, email=session["email"]).single()["emails"]
-
+    current_friends = db.get_all_friends(session["email"])
     recommendations = list(set(recommended_friends) - set(current_friends))
 
-    return db.get_user_data(recommendations)
+    return recommendations

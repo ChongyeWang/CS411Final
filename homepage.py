@@ -30,8 +30,12 @@ def index():
     num_recommendations = 5
     recommendations = get_recommended_friends(
         num_recommendations, recommendation_matrix)
+    recommendations = db.get_user_data(recommendations)
 
-    return render_template("index_logged_in.html", movies=movies, recommendations=recommendations)
+    friends = db.get_all_friends(session["email"])
+    friends = db.get_user_data(friends)
+
+    return render_template("index_logged_in.html", movies=movies, recommendations=recommendations, friends=friends)
 
 
 def update_recommendation_matrix():

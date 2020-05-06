@@ -40,3 +40,16 @@ def get_user_data(emails):
     user_data = mysql_cursor.fetchall()
 
     return user_data
+
+
+def get_all_friends(email):
+    """
+        Returns a list of all friends of the given user.
+    """
+
+    query = """
+        MATCH (u:User {email: $email})-[:FriendsWith]->(v:User)
+        RETURN COLLECT(v.email) AS emails
+    """
+
+    return neo4j_driver.session().run(query, email=email).single()["emails"]
