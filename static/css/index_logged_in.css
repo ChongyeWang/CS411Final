@@ -9,25 +9,22 @@
     width: 30vw;
 }
 
-#logo {
-    font-family: Impact, Charcoal, sans-serif;
+.logo_heading {
     font-size: 5vw;
-    word-spacing: 3px;
-    font-weight: 700;
-    font-style: italic;
-    text-transform: uppercase;
     text-align: center;
     margin-top: 30px;
 }
 
 @media (max-width: 1000px) {
-    #logo {
+    .logo_heading {
         font-size: 8vw;
     }
 }
 
 #recommended_friends {
     margin-top: 5%;
+    width: fit-content;
+    margin: 5% auto 0 auto;
 }
 
 h1 {
@@ -37,30 +34,49 @@ h1 {
 
 .friend_recommendation {
     display: flex;
-    width: 400px;
     margin: 30px auto;
     font-size: 30px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .friend_recommendation a {
     color: white;
-    margin-right: 30px;
+    margin-right: 5vw;
 }
 
 .friend_button {
     padding: 10px 20px;
     border: 1px solid black;
-    color: #39ff14;
     box-shadow: 1px 1px 4px 2px grey;
     font-size: 20px;
+    background-color: black;
 }
 
 .add_friend {
-    background-color: black;
+    color: #39ff14;
 }
 
 .remove_friend {
-    background-color: black;
     color: #e32636;
+}
+
+hr {
+    width: 80%;
+    margin: 5% auto;
+}
+
+#current_friends {
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    justify-content: space-around;
+    row-gap: 5vh;
+    font-size: 30px;
+    margin: 3% auto;
+}
+
+@media (max-width: 800px) {
+    #current_friends {
+        grid-template-columns: max-content max-content;
+    }
 }

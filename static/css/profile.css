@@ -14,17 +14,16 @@
     padding: 10px 20px;
     font-size: 20px;
     border: 1px solid black;
-    color: #39FF14;
+    background-color: black;
     box-shadow: 1px 1px 4px 2px grey;
 }
 
 .add_friend {
-    background-color: black;
+    color: #39ff14;
 }
 
 .remove_friend {
-    background-color: black;
-	color: #E32636;
+    color: #e32636;
 }
 
 table {

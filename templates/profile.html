@@ -16,7 +16,7 @@
         <h2>{{ user_info[0][0] }}</h2>
 
         {% if distance != 0 %}
-            <h2 id = "distance">Distance = {{ distance }}</h2>
+            <h2 id = "distance">Separation = {{ distance }}</h2>
             <button
                 class = "friend_button {{ 'remove_friend' if distance == 1 else 'add_friend' }}"
                 onclick="addFriend(this)"
