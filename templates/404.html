@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>440 Page Not Found</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/404.css') }}"
+    />
+
+{% endblock %}
+
+{% block main %}
+    <h1>404 Page Not Found</h1>
+    <p>The page you were looking for could not be found. Please click a link in the navbar to continue.</p>
+{% endblock %}
