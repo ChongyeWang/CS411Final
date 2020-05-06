@@ -28,10 +28,14 @@ h1 {
     font-size: 30px;
     list-style-type: square;
     line-height: 1.4;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     margin: 0 auto;
 }
 
 #features_list li {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }

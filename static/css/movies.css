@@ -31,6 +31,8 @@ td {
 
 #Review_boxes {
     margin: 0 auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -73,6 +75,8 @@ h2 {
     background-color: gray;
     color: white;
     margin: 30px 0;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -100,9 +104,9 @@ h2 {
     text-align: center;
 }
 
-#Review_responses{
-	border: 2px solid #FFFAFA;
-	color:white;
+#Review_responses {
+    border: 2px solid #fffafa;
+    color: white;
 }
 .review_heading a {
     color: white;
