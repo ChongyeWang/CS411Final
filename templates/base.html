@@ -20,7 +20,11 @@
     </head>
     <body>
         <nav>
-            <a href="{{ url_for('homepage_api.index') }}">Movie Match</a>
+            <a
+                class = "logo"
+                href="{{ url_for('homepage_api.index') }}"
+            >Movie Match</a>
+            
             <ul id="nav_links">
                 {% if not session.email %}
                     <li><a href="{{ url_for('register_api.register') }}">Register</a></li>

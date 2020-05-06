@@ -171,6 +171,13 @@ nav {
     padding: 10px;
 }
 
+.logo {
+    font-family: Impact, Charcoal, sans-serif;
+    word-spacing: 3px;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
 #nav_links {
     display: flex;
     justify-content: space-around;
